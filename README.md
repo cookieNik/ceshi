@@ -8,6 +8,8 @@
 6.testControllerwithWebMvcTest通过使用@WebMvcTest(UserOutControl.class)、@AutoConfigureMybatis、@Import({UserService.class,UserDao.class})实现对controller接口的调用<br/>
 7.做了基于@MybatisTest的mapper、dao层的单元测试，测试结果通过配置可以设置操作或者不操作真实数据库<br/>
 ----
+
 二.dbunit包
 ==
 1.dbunit包中补充做了springboot+H2+DBUnit单元测试，支持不修改真实数据库，在备份数据库上做的增查操作，有个问题就是数据库数据备份的时候，需要手动添加数据xml配置文件<br/>
+----
