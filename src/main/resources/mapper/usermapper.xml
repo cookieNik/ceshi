@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.ceshi.mapper.UserMappper">
+
+
+    <insert id="inseruserInfo" parameterType="com.springboot.ceshi.model.User">
+        insert into user(id,name,age,address) VALUES (#{id},#{name},#{age},#{address})
+    </insert>
+
+    <select id="findByUserid" parameterType="int" resultType="com.springboot.ceshi.model.User">
+        select * from user where id = #{value}
+    </select>
+
+
+
+
+
+</mapper>
