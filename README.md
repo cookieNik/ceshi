@@ -1,6 +1,5 @@
 一.ceshi包
 1.做了对springboot的controller、service、dao、mapper基于mockBean做了单元测试，和集成测试.
-
 2.testJunit4做了基于springbootTest和Junit4的集成测试，该测试demo会自主向下的调用相关接口和服务。
 3.controller、service、dao、mapper做了分层次的单元测试使用mockBean虚拟环境，各个层次业务单独测试，自定义依赖调用的接口的返回结果，更加集中在当前层次   的业务。
 4.testController通过内部注入WebApplicationContext，然后构建MockMvc实例实现调用controller接口。
