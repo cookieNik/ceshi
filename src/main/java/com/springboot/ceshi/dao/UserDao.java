@@ -2,6 +2,7 @@ package com.springboot.ceshi.dao;
 
 
 import com.springboot.ceshi.mapper.UserMappper;
+import com.springboot.ceshi.model.Product;
 import com.springboot.ceshi.model.User;
 import com.springboot.ceshi.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class UserDao {
     public User findByUserid(int id){
         return userMappper.findByUserid(id);
     }
+    public List<User> findAll(){
+        return userMappper.findAll();
+    }
+    public Product findProductByid(int id){
+        return userMappper.findProductByid(id);
+    }
+
 
 
 

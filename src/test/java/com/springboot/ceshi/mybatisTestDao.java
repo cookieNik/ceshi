@@ -26,7 +26,7 @@ public class mybatisTestDao {
     UserDao userDao;
     @Test
     public void test1(){
-        User user=userDao.findByUserid(4);
+        User user=userDao.findByUserid(2);
         System.out.println(user);
     }
     @Test

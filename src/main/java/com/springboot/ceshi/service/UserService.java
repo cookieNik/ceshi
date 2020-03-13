@@ -1,6 +1,7 @@
 package com.springboot.ceshi.service;
 
 import com.springboot.ceshi.dao.UserDao;
+import com.springboot.ceshi.model.Product;
 import com.springboot.ceshi.model.User;
 import com.springboot.ceshi.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class UserService {
 
     public User findByUserid(int id){
         User user=userDao.findByUserid(id);
+        List<User> all = userDao.findAll();
+        Product product=userDao.findProductByid(id);
         return user;
     }
 

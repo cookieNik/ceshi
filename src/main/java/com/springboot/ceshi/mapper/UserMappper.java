@@ -1,5 +1,6 @@
 package com.springboot.ceshi.mapper;
 
+import com.springboot.ceshi.model.Product;
 import com.springboot.ceshi.model.User;
 import com.springboot.ceshi.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,6 +17,8 @@ public interface UserMappper {
     public void inseruserInfo(User user);
 
     public User findByUserid(int id);
+    public List<User> findAll();
+    public Product findProductByid(int id);
 
 
 }

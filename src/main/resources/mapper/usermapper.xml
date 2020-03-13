@@ -10,6 +10,13 @@
     <select id="findByUserid" parameterType="int" resultType="com.springboot.ceshi.model.User">
         select * from user where id = #{value}
     </select>
+    <select id="findAll" resultType="com.springboot.ceshi.model.User">
+        select * from user
+    </select>
+
+    <select id="findProductByid" parameterType="int" resultType="com.springboot.ceshi.model.Product">
+        select * from product where id = #{value}
+    </select>
 
 
 
