@@ -1,0 +1,14 @@
+user:
+  - id: 3
+    name: "dbunit"
+    age: 13
+    address: "222222"
+  - id: 4
+    name: "dbunit"
+    age: 14
+    address: "222222"
+  - id: 5
+    name: "dbunit"
+    age: 15
+    address: "222222"
+

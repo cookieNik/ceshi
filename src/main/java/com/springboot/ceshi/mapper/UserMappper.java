@@ -4,6 +4,7 @@ import com.springboot.ceshi.model.Product;
 import com.springboot.ceshi.model.User;
 import com.springboot.ceshi.vo.UserVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

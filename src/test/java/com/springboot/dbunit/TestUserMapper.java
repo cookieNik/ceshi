@@ -1,9 +1,7 @@
 package com.springboot.dbunit;
 
-import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.springboot.ceshi.CeshiApplication;
-import com.springboot.ceshi.dao.UserDao;
 import com.springboot.ceshi.mapper.UserMappper;
 import com.springboot.ceshi.model.User;
 import com.springboot.ceshi.service.UserService;
@@ -13,20 +11,19 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mockito.BDDMockito;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.sql.DataSource;
-import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.List;
