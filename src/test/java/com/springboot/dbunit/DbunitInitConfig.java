@@ -18,12 +18,12 @@ import java.sql.SQLException;
 /**
  * dbunit单元测试流程：建立数据库连接、备份表、调用接口测试、从数据库获取实际结果、断言对比期望数据、回滚数据、关闭数据库
  */
-public class AbstractDbunitTestCase{
+public class DbunitInitConfig {
 
 
-    private DatabaseConnection conn;   //这个不是真正的数据库的连接的  封装
+    private  DatabaseConnection conn;   //这个不是真正的数据库的连接的  封装
 
-    private File tempFile;    //这个就是临时文件
+    private  File tempFile;    //这个就是临时文件
 
     //private IDataSet dataSetTestData;
 
@@ -31,7 +31,7 @@ public class AbstractDbunitTestCase{
      * 第一步建立数据库连接
      * @param conn1
      */
-    public void setConn(Connection conn1) throws DatabaseUnitException {
+    public  void setConn(Connection conn1) throws DatabaseUnitException {
         conn=new DatabaseConnection(conn1);
     }
 
@@ -39,10 +39,10 @@ public class AbstractDbunitTestCase{
      * 获取数据集
      * @throws DatabaseUnitException
      */
-    public IDataSet getXmlDataSet(String name) throws Exception{
+    public  IDataSet getXmlDataSet(String name) throws Exception{
         //FlatXmlDataSet build = new FlatXmlDataSetBuilder().build(new File(name));
         FlatXmlDataSet flatXmlDataSet = new FlatXmlDataSet(new FlatXmlProducer(new InputSource(
-                AbstractDbunitTestCase.class.getClassLoader().getResourceAsStream(name))));
+                DbunitInitConfig.class.getClassLoader().getResourceAsStream(name))));
         return flatXmlDataSet;
     }
 
@@ -50,14 +50,14 @@ public class AbstractDbunitTestCase{
      * 获取数据集
      * @return
      */
-    public IDataSet getDBData() throws SQLException {
+    public  IDataSet getDBData() throws SQLException {
         return conn.createDataSet();
     }
     /**
      * 获取数据集
      * @return
      */
-    public IDataSet getQueryDataSet() throws SQLException {
+    public  IDataSet getQueryDataSet() throws SQLException {
         return new QueryDataSet(conn);
     }
 
@@ -69,7 +69,7 @@ public class AbstractDbunitTestCase{
      * @throws DataSetException
      * @throws IOException
      */
-    public IDataSet getXlsDataSet(String name) throws SQLException, DataSetException,
+    public  IDataSet getXlsDataSet(String name) throws SQLException, DataSetException,
             IOException {
         InputStream is = new FileInputStream(new File(name));
         return new XlsDataSet(is);
@@ -78,7 +78,7 @@ public class AbstractDbunitTestCase{
     /**
      * 将数据全部备份到临时文件
      */
-    public void backAll() throws Exception {
+    public  void backAll() throws Exception {
         IDataSet iDataSet=conn.createDataSet();
         tempFile= File.createTempFile("back",".xml");
         FlatXmlDataSet.write(iDataSet, new FileWriter(tempFile),"UTF-8");
@@ -86,7 +86,7 @@ public class AbstractDbunitTestCase{
     /**
      * 备份指定的数据到临时文件
      */
-    public void backSpecified(String... tableName) throws Exception {
+    public  void backSpecified(String... tableName) throws Exception {
         QueryDataSet queryDataSet=new QueryDataSet(conn);
         for(String tableNa:tableName){
             queryDataSet.addTable(tableNa);
@@ -108,9 +108,8 @@ public class AbstractDbunitTestCase{
      * @throws DatabaseUnitException
      * @throws SQLException
      */
-    public void initDB(IDataSet iDataSet) throws DatabaseUnitException, SQLException {
-        DatabaseOperation.CLEAN_INSERT.execute(conn,iDataSet);
-        //DatabaseOperation.CLEAN_INSERT.execute(conn,iDataSet);
+    public  void initDB(IDataSet iDataSet) throws DatabaseUnitException, SQLException {
+        DatabaseOperation.INSERT.execute(conn,iDataSet);
     }
 
 

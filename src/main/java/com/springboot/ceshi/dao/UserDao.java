@@ -29,8 +29,14 @@ public class UserDao {
     public List<User> findAll(){
         return userMappper.findAll();
     }
+    public List<Product> findAllProduct(){
+        return userMappper.findAllProduct();
+    }
     public Product findProductByid(int id){
         return userMappper.findProductByid(id);
+    }
+    public void deleteUser(int id){
+        userMappper.deleteUser(id);
     }
 
 

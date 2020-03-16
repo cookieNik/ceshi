@@ -23,5 +23,6 @@ CREATE TABLE `user` (
   `id` int(20) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `age` int(20) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL
+  `address` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 )

@@ -21,14 +21,13 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.List;
-
-import static org.mockito.BDDMockito.given;
 
 /**
  * dbunit单元测试需要生成表对应的xml，可采用一些工具类（待补充）。
@@ -38,35 +37,27 @@ import static org.mockito.BDDMockito.given;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CeshiApplication.class)
 @TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class, //检测测试用例中 @Autowried 注解并完成自动注入
+        //DirtiesContextTestExecutionListener.class,//解析 @DirtiesContext 注解
         TransactionDbUnitTestExecutionListener.class,
-        MockitoTestExecutionListener.class
+        //TransactionalTestExecutionListener.class,
+        //MockitoTestExecutionListener.class
         //Spring Teset DbUnit提供了 TransactionDbUnitTestExecutionListener会将事务边界扩大到Spring Test DbUnit执行的整个过程
 })
-@Transactional //添加事务进行回滚
 //指定采用基于内存的测试数据库H2
 @ActiveProfiles("test")
-//单独的@Transactional是回滚事务，在添加@Transactional的情况下如果要提交事务，只需要增加@Rollback(false),添加后，该测试类中的测试案例都会互相影响数据，
 //直到测试案例跑完，数据回滚
 @Rollback(false)
 //测试实例按顺序执行
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestUserMapper {
+public class TestDBUnit {
 
-    private User user;   //期望返回的数据
-    private AbstractDbunitTestCase testCase=new AbstractDbunitTestCase();
+
+    private DbunitInitConfig testCase=new DbunitInitConfig();
     //注入数据源
     @Autowired
     private DataSource dataSource;
-    /*@Autowired
-    UserService userService;*/
-    //不会走真实实例，走自定义的虚拟实例
-    @MockBean
-    UserService userService;
-    //@SpyBean注释的实例会走真实的实例方法。可以自定义期望返回。
-   /* @SpyBean
-    UserService userService;*/
+
     @Autowired
     private UserMappper userMappper;
     /**
@@ -99,18 +90,6 @@ public class TestUserMapper {
         System.out.println("123");
     }
 
-    @Test
-    public void test2(){
-        User user=new User(4,"12321",234,"234324");
-        BDDMockito.given(this.userService.findByUserid(4)).willReturn(user);
-        //调用方法
-        User acUser = userService.findByUserid(4);
-        //Product product=userMappper.findProductByid(1);
-        //断言(就是看请求回来的数据 和预期的数据是否一致)
-        //Assert.assertEquals(user.getId(),acUser.getId());
-        System.out.println(acUser);
-
-    }
     //测试插入数据，如果不错还原数据处理destory（），测试数据会提交到真实数据库
     @Test
     public void test3(){

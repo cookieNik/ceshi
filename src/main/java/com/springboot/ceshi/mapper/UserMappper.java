@@ -19,7 +19,9 @@ public interface UserMappper {
 
     public User findByUserid(int id);
     public List<User> findAll();
+    public List<Product> findAllProduct();
     public Product findProductByid(int id);
+    public void deleteUser(int id);
 
 
 }

@@ -23,9 +23,17 @@ public class UserService {
 
     public User findByUserid(int id){
         User user=userDao.findByUserid(id);
-        List<User> all = userDao.findAll();
-        Product product=userDao.findProductByid(id);
         return user;
+    }
+
+    public List<User> findAll(){
+        return userDao.findAll();
+    }
+    public List<Product> findAllProduct(){
+        return userDao.findAllProduct();
+    }
+    public void deleteUser(int id){
+         userDao.deleteUser(id);
     }
 
 

@@ -42,4 +42,11 @@ public class Product {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Product(int id, int type, String name, String status) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.status = status;
+    }
 }
