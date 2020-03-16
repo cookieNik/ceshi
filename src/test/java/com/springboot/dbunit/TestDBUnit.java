@@ -87,6 +87,7 @@ public class TestDBUnit {
         userMappper.inseruserInfo(user);
         User user4=userMappper.findByUserid(6);
         List<User> users=userMappper.findAll();
+
         System.out.println("123");
     }
 
