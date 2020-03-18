@@ -1,11 +1,10 @@
-USERS:
-  - ID: 1
-    EMAIL: "dbunit@gmail.com"
-    NAME: "dbunit"
-  - ID: 2
-    EMAIL: "rmpestano@gmail.com"
-    NAME: "rmpestano"
-  - ID: 3
-    EMAIL: "springboot@gmail.com"
-    NAME: "springboot"
+product:
+  - productid: 11
+    name: "苹果1"
+    title: "水果1"
+    type: 1
+  - productid: 12
+    name: "苹果2"
+    title: "水果2"
+    type: 1
 
