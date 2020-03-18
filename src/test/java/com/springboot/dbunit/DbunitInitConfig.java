@@ -1,5 +1,6 @@
 package com.springboot.dbunit;
 
+import org.dbunit.DataSourceBasedDBTestCase;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.QueryDataSet;
@@ -11,8 +12,8 @@ import org.dbunit.dataset.xml.FlatXmlProducer;
 import org.dbunit.operation.DatabaseOperation;
 import org.xml.sax.InputSource;
 
+import javax.sql.DataSource;
 import java.io.*;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -20,20 +21,16 @@ import java.sql.SQLException;
  */
 public class DbunitInitConfig {
 
+    private DataSource dataSource;
+
+    public DbunitInitConfig(DataSource dataSource) throws SQLException, DatabaseUnitException {
+        this.dataSource = dataSource;
+        this.conn=new DatabaseConnection(dataSource.getConnection());
+    }
 
     private  DatabaseConnection conn;   //这个不是真正的数据库的连接的  封装
 
     private  File tempFile;    //这个就是临时文件
-
-    //private IDataSet dataSetTestData;
-
-    /**
-     * 第一步建立数据库连接
-     * @param conn1
-     */
-    public  void setConn(Connection conn1) throws DatabaseUnitException {
-        conn=new DatabaseConnection(conn1);
-    }
 
     /**
      * 获取数据集
@@ -46,12 +43,14 @@ public class DbunitInitConfig {
         return flatXmlDataSet;
     }
 
+
     /**
-     * 获取数据集
-     * @return
+     * 插入数据到数据库
+     * @throws DatabaseUnitException
+     * @throws SQLException
      */
-    public  IDataSet getDBData() throws SQLException {
-        return conn.createDataSet();
+    public  void insertDB(IDataSet iDataSet) throws DatabaseUnitException, SQLException {
+        DatabaseOperation.INSERT.execute(conn,iDataSet);
     }
     /**
      * 获取数据集
@@ -94,6 +93,7 @@ public class DbunitInitConfig {
         tempFile=File.createTempFile("back",".xml");
         FlatXmlDataSet.write(queryDataSet,new FileWriter(tempFile),"UTF-8");
     }
+
     /**
      * 还原表的数据
      */
@@ -101,18 +101,4 @@ public class DbunitInitConfig {
         IDataSet dataSet=new FlatXmlDataSet(new FlatXmlProducer(new InputSource(new FileInputStream(tempFile))));
         DatabaseOperation.CLEAN_INSERT.execute(conn,dataSet);
     }
-
-
-    /**
-     * 初始化数据库状态
-     * @throws DatabaseUnitException
-     * @throws SQLException
-     */
-    public  void initDB(IDataSet iDataSet) throws DatabaseUnitException, SQLException {
-        DatabaseOperation.INSERT.execute(conn,iDataSet);
-    }
-
-
-
-
 }

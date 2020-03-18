@@ -1,9 +1,7 @@
 package com.springboot.ceshi.service;
 
-import com.springboot.ceshi.dao.UserDao;
-import com.springboot.ceshi.model.Product;
+import com.springboot.ceshi.reporisty.UserRepository;
 import com.springboot.ceshi.model.User;
-import com.springboot.ceshi.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +13,19 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    UserDao userDao;
+    private UserRepository userRepository;
 
-    public void inseruserInfo(User user){
-        userDao.inseruserInfo(user);
+    public User findById(int id){
+        return userRepository.findOne(id);
     }
-
-    public User findByUserid(int id){
-        User user=userDao.findByUserid(id);
-        return user;
-    }
-
-    public List<User> findAll(){
-        return userDao.findAll();
-    }
-    public List<Product> findAllProduct(){
-        return userDao.findAllProduct();
+    public List<User> findAllUser(){
+        return userRepository.findAllUser();
     }
     public void deleteUser(int id){
-         userDao.deleteUser(id);
+        userRepository.delete(id);
     }
-
-
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
 
 }

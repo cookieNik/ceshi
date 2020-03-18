@@ -36,23 +36,23 @@ public class TestMockSpy {
     ProductService productService;
     @Test
     public void test1(){
-        User user=new User(4,"12321",234,"234324");
-        BDDMockito.given(this.userService.findByUserid(4)).willReturn(user);
+        User user=new User("12321",234,"234324");
+        BDDMockito.given(this.userService.findById(4)).willReturn(user);
         //返回上面定义的user
-        User acUser = userService.findByUserid(4);
+        User acUser = userService.findById(4);
         //返回null
-        User acUser1 = userService.findByUserid(1);
+        User acUser1 = userService.findById(1);
         System.out.println(acUser);
     }
     @Test
     public void test2(){
-        Product product=new Product(4,4,"测试","234324");
+        Product product=new Product(1,"水果","西瓜");
         //下面会调用真实的service
-        BDDMockito.given(this.productService.findProductByid(1)).willReturn(product);
+        BDDMockito.given(this.productService.findById(1)).willReturn(product);
         //不会走真实的service，直接返回上面定义的user
-        Product product1 = productService.findProductByid(1);
+        Product product1 = productService.findById(1);
         //走真是的service，并返回
-        Product product2 = productService.findProductByid(2);
+        Product product2 = productService.findById(2);
         System.out.println(product1);
     }
 }

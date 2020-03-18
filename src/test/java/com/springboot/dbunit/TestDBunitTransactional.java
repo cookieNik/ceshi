@@ -35,22 +35,15 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CeshiApplication.class)
-@ActiveProfiles("test")
+/*@ActiveProfiles("test")*/
 //@Rollback(value = false)  //为true的时候测试方法增删改会回滚
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionDbUnitTestExecutionListener.class
-       // TransactionalTestExecutionListener.class
-        //Spring Teset DbUnit提供了 TransactionDbUnitTestExecutionListener会将事务边界扩大到Spring Test DbUnit执行的整个过程
-})
 public class TestDBunitTransactional {
 
-    private DbunitInitConfig testCase=new DbunitInitConfig();
     //注入数据源
     @Resource
     private  DataSource dataSource;
+    private DbunitInitConfig config;
     @Autowired
     UserService userService;
 
@@ -59,33 +52,33 @@ public class TestDBunitTransactional {
      * 否则会在每个测试方法之前执行该初始化方法
      * @throws Exception
      */
-    @Before
+    @Before//建立连接，设置数据库初始态
     public void init() throws Exception {
-        //建立数据库连接
-        testCase.setConn(dataSource.getConnection());
+        //初始化数据库，建立数据据连接
+        this.config=new DbunitInitConfig(dataSource);
         //备份数据库表，全部备份，或者根据表名备份
-        testCase.backAll();
+        config.backAll();
         //备份指定表名数据
-        //testCase.backSpecified("user");
+        //config.backSpecified("user");
         //获取数据集,可指定多种方式，testCase.getQueryDataSet(),testCase.getXlsDataSet("");testCase.getXmlDataSet("");
-        IDataSet xmlDataSet = testCase.getXmlDataSet("testMapper.xml");
-        //初始化数据库状态,数据来自初始话的sql和加载的xml文件，可通过DatabaseOperation.INSERT配置
-        testCase.initDB(xmlDataSet);
+        //IDataSet xmlDataSet = config.getXmlDataSet("testMapper.xml");
+        //初始化数据库状态
+        //config.insertDB(xmlDataSet);
     }
+
     /**
      * 添加了@Transactional，遇到异常，插入失败，数据回滚
      */
     @Test
-    @Transactional //添加事务注解，不会提交数据到数据库，避免脏数据，如果想提交数据到数据库，不添加就可以
-    //@Rollback(false) //在测试完成后是否回滚，true回滚，false提交，默认true
+    //@Transactional //添加事务注解，不会提交数据到数据库，避免脏数据，如果想提交数据到数据库，不添加就可以
+    @Rollback(false) //在测试完成后是否回滚，true回滚，false提交，默认true
     public void test1() throws Exception {
         //测试service业务逻辑，模拟dao层返回结果，并不会走真实dao层，但会的user1对象是上面定义的user
-        List<User> all=userService.findAll();
-        User user=new User(5,"测试5",123,"地址5");
-        userService.inseruserInfo(user);
+        List<User> all=userService.findAllUser();
+        User user=new User("测试5",123,"地址5");
+        userService.saveUser(user);
         userService.deleteUser(1);
-        List<User> users=userService.findAll();
-        List<User> users1=userService.findAll();
+        List<User> users=userService.findAllUser();
         System.out.println("123");
     }
 
@@ -94,23 +87,14 @@ public class TestDBunitTransactional {
      * @throws Exception
      */
     @Test
-    @Rollback(false)
+    //@Rollback(false)
     public void test2() throws Exception {
         //测试service业务逻辑，模拟dao层返回结果，并不会走真实dao层，但会的user1对象是上面定义的user
-        List<User> users=userService.findAll();
-        User user=new User(6,"测试6",123,"地址6");
-        userService.inseruserInfo(user);
-        List<User> users1=userService.findAll();
+        List<User> users=userService.findAllUser();
+        User user=new User("测试6",123,"地址6");
+        userService.saveUser(user);
+        List<User> users1=userService.findAllUser();
         System.out.println("123");
-    }
-
-    @Test
-    public void test3(){
-        List<User> users=userService.findAll();
-        User user=new User(7,"测试7",123,"地址7");
-        userService.inseruserInfo(user);
-        System.out.println("123");
-
     }
 
     /**
@@ -118,6 +102,6 @@ public class TestDBunitTransactional {
      */
     @After
     public void rollBack() throws FileNotFoundException, DatabaseUnitException, SQLException {
-        testCase.dataRollback();
+        config.dataRollback();
     }
 }

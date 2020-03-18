@@ -33,8 +33,6 @@ import static org.mockito.BDDMockito.given;
  *
  */
 @RunWith(SpringRunner.class)
-//默认使用web模拟环境SpringBootTest.WebEnvironment.MOCK
-//如果想访问真实service，去掉mockbean注解注释的service。
 @SpringBootTest
 public class testController {
 
@@ -55,17 +53,17 @@ public class testController {
     public void testPostControl() throws Exception{
         //构造模拟service返回结果，并不会走真实的service
         User user=new User();
-        user.setId(6);
+        user.setUserid(6);
         user.setAddress("北京丰台区");
         user.setAge(122);
         user.setName("张三");
-        given(this.userService.findByUserid(1))
+        given(this.userService.findById(1))
                 .willReturn(user);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/findByUserid")
                 .accept(MediaType.APPLICATION_JSON_UTF8) //设置接受的编码方式
                 .contentType(MediaType.APPLICATION_JSON_UTF8) //设置内容的编码方式
-                .param("id","2") //查询参数
+                .param("id","1") //查询参数
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())//判断http响应状态码是不是200
                /* .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("张三"))//判断查询结果的字段是不是和期望值一样

@@ -1,20 +1,36 @@
 package com.springboot.ceshi.model;
 
+
+import javax.persistence.*;
+
 /**
  * Created by youfan on 2018/6/6 0006.
  */
+@Entity
+@Table(name = "user")
 public class User {
-    private int id;//主键
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userid;//主键
     private String name;//姓名
     private int age ;//年龄
     private String address;//地址
 
-    public int getId() {
-        return id;
+    public User() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public User(String name, int age, String address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public String getName() {
@@ -39,15 +55,5 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public User(int id, String name, int age, String address) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.address = address;
-    }
-
-    public User() {
     }
 }

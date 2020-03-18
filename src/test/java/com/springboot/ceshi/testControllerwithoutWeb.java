@@ -34,11 +34,11 @@ public class testControllerwithoutWeb {
     public void getAllCities() throws Exception {
         //构造模拟service返回结果，并不会走真实的service
         User user=new User();
-        user.setId(6);
+        user.setUserid(6);
         user.setAddress("北京丰台区");
         user.setAge(122);
         user.setName("张三");
-        given(this.userService.findByUserid(1))
+        given(this.userService.findById(1))
                 .willReturn(user);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/findByUserid")

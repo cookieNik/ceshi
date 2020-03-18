@@ -1,26 +1,26 @@
 package com.springboot.ceshi.service;
 
-import com.springboot.ceshi.dao.ProductDao;
+import com.springboot.ceshi.reporisty.ProductRepository;
 import com.springboot.ceshi.model.Product;
-import com.springboot.ceshi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
-public class ProductService {
+public class ProductService{
     @Autowired
-    ProductDao productDao;
-    public void inserProductInfo(Product product){
-        productDao.inserProductInfo(product);
-    }
-    public Product findProductByid(int id){
-        Product product=productDao.findProductByid(id);
-        return product;
+    private ProductRepository productRepository;
+    public Product findById(int id){
+        return productRepository.findOne(id);
     }
     public List<Product> findAllProduct(){
-        return productDao.findAllProduct();
+        return productRepository.findAllProduct();
+    }
+    public void deleteProduct(int id){
+        productRepository.delete(id);
+    }
+    public void saveProduct(Product product){
+        productRepository.save(product);
     }
 
 }

@@ -1,0 +1,29 @@
+
+product:
+  - productid: 1
+    name: "苹果"
+    title: "水果"
+    type: 1
+  - productid: 2
+    name: "苹果"
+    title: "水果"
+    type: 1
+
+user:
+  - userid: 1
+    address: "北京"
+    age: 12
+    name: "李四1"
+  - userid: 2
+    address: "北京"
+    age: 12
+    name: "李四2"
+  - userid: 3
+    address: "天津"
+    age: 13
+    name: "张三"
+  - userid: 4
+    address: "天津"
+    age: 13
+    name: "张三"
+

@@ -1,6 +1,6 @@
 package com.springboot.ceshi;
 
-import com.springboot.ceshi.dao.UserDao;
+import com.springboot.ceshi.reporisty.UserRepository;
 import com.springboot.ceshi.model.User;
 import com.springboot.ceshi.service.UserService;
 import org.junit.Test;
@@ -18,20 +18,19 @@ public class testService {
     @Autowired
     UserService userService;
     @MockBean
-    UserDao userDao;
+    UserRepository userRepository;
     @Test
     public void test1(){
         //模拟dao层返回结果
         User user=new User();
-        user.setId(6);
         user.setAddress("北京丰台区");
         user.setAge(122);
         user.setName("张三");
-        given(this.userDao.findByUserid(1))
+        given(this.userRepository.findOne(1))
                 .willReturn(user);
 
         //测试service业务逻辑，模拟dao层返回结果，并不会走真实dao层.
-        User user1 = userService.findByUserid(2);
+        User user1 = userService.findById(2);
         System.out.println(user1);
     }
 }
