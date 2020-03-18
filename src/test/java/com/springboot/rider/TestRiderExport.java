@@ -11,6 +11,7 @@ import com.github.database.rider.junit5.api.DBRider;
 import com.springboot.ceshi.CeshiApplication;
 import com.springboot.ceshi.model.Product;
 import com.springboot.ceshi.model.User;
+import com.springboot.ceshi.service.ProductService;
 import com.springboot.ceshi.service.UserService;
 import org.dbunit.DatabaseUnitException;
 import org.junit.Rule;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CeshiApplication.class)
-/*@ActiveProfiles("test")*/
+@ActiveProfiles("test")
 @DBRider
 public class TestRiderExport {
 
@@ -37,6 +38,8 @@ public class TestRiderExport {
     private DataSource dataSource;
     @Autowired
     private UserService userService;
+    @Autowired
+    ProductService productService;
     @Rule
     public DBUnitRule dbUnitRule = DBUnitRule.
             instance(() -> dataSource.getConnection());
@@ -80,8 +83,9 @@ public class TestRiderExport {
     public void test3() throws Exception{
         DataSetConfig dataSetConfig  = new DataSetConfig();
         dataSetConfig.datasetProvider(CustomDataSetProvider.class);
-        dbUnitRule.getDataSetExecutor().createDataSet(dataSetConfig);
-        List<User> all = userService.findAllUser();
+        DataSetExecutor dataSetExecutor = dbUnitRule.getDataSetExecutor();
+        dataSetExecutor.createDataSet(dataSetConfig);
+        List<Product> all = productService.findAllProduct();
         System.out.println("123");
     }
 }

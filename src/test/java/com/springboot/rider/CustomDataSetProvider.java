@@ -14,15 +14,15 @@ public class CustomDataSetProvider implements DataSetProvider {
         IDataSet dataSet = builder
                 .table("PRODUCT")
                 .row()
-                .column("ID", 1)
-                .column("TYPE", 1)
+                .column("PRODUCTID", 1)
+                .column("TITLE", "面食")
                 .column("NAME", "馒头11")
-                .column("STATUS", 1)
-                .row()
-                .column("ID", 2)
                 .column("TYPE", 1)
+                .row()
+                .column("PRODUCTID", 2)
+                .column("TITLE", "电子设备")
                 .column("NAME", "苹果手机111")
-                .column("STATUS", 2).build();
+                .column("TYPE", 2).build();
         return dataSet;
     }
 }

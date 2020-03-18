@@ -61,11 +61,11 @@ public class DruidConfig  implements EnvironmentAware {
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         return servletRegistrationBean;
     }
-    @Bean
+   /* @Bean
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
-    }
+    }*/
 }

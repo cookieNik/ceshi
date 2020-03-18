@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,6 +23,7 @@ import static org.mockito.BDDMockito.given;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 //使用@AutoConfigureMockMvc则是因为这样可以获得自动配置的MockMvc实例
 @AutoConfigureMockMvc
 public class testControllerwithoutWeb {
@@ -45,9 +47,8 @@ public class testControllerwithoutWeb {
                 .accept(MediaType.APPLICATION_JSON_UTF8) //设置接受的编码方式
                 .contentType(MediaType.APPLICATION_JSON_UTF8) //设置内容的编码方式
                 .param("id","1")) //查询参数
-
-                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("张三"));
+                .andDo(MockMvcResultHandlers.print());
+
     }
 }

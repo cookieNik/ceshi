@@ -35,7 +35,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CeshiApplication.class)
-/*@ActiveProfiles("test")*/
+@ActiveProfiles("test")
 //@Rollback(value = false)  //为true的时候测试方法增删改会回滚
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestDBunitTransactional {
@@ -61,9 +61,9 @@ public class TestDBunitTransactional {
         //备份指定表名数据
         //config.backSpecified("user");
         //获取数据集,可指定多种方式，testCase.getQueryDataSet(),testCase.getXlsDataSet("");testCase.getXmlDataSet("");
-        //IDataSet xmlDataSet = config.getXmlDataSet("testMapper.xml");
+       // IDataSet xmlDataSet = config.getXmlDataSet("testMapper.xml");
         //初始化数据库状态
-        //config.insertDB(xmlDataSet);
+       // config.insertDB(xmlDataSet);
     }
 
     /**
@@ -77,6 +77,7 @@ public class TestDBunitTransactional {
         List<User> all=userService.findAllUser();
         User user=new User("测试5",123,"地址5");
         userService.saveUser(user);
+        List<User> users1=userService.findAllUser();
         userService.deleteUser(1);
         List<User> users=userService.findAllUser();
         System.out.println("123");
