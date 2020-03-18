@@ -6,5 +6,5 @@ product:
   - productid: 12
     name: "苹果2"
     title: "水果2"
-    type: 1
+    type: 2
 
