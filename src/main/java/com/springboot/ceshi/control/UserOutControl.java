@@ -6,6 +6,8 @@ import com.springboot.ceshi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,9 +26,8 @@ public class UserOutControl {
     }
     @RequestMapping(value = "/insertUser",method = RequestMethod.GET)
     public void userregister() {
-        User user=new User("张三",12,"天津");
-        User user2=new User("李四",12,"北京");
-        userServive.saveUser(user2);
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
+        userServive.saveUser(user);
         return;
     }
     @RequestMapping(value = "/findByUserid",method = RequestMethod.GET)

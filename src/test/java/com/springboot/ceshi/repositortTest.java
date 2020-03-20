@@ -10,6 +10,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,15 +34,9 @@ public class repositortTest {
     //@Transactional //测试结束，回滚数据
     public void test2(){
         List<User> allUser = userRepository.findAllUser();
-        User user=new User();
-        user.setName("李四");
-        user.setAge(16);
-        user.setAddress("北京1");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         userRepository.save(user);
-        User user1=new User();
-        user1.setName("李四1");
-        user1.setAge(161);
-        user1.setAddress("北京11");
+        User user1=new User("张三1",12,"天津1",new Date(),new BigDecimal(123),123.12f,123.123);
         userRepository.save(user1);
         List<User> allUser1 = userRepository.findAllUser();
         System.out.println(123);

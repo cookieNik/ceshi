@@ -1,0 +1,11 @@
+product:
+  - productid: 10
+    name: "苹果10"
+    title: "水果10"
+    type: 1
+  - productid: 11
+    name: "苹果11"
+    title: "水果11"
+    type: 2
+
+

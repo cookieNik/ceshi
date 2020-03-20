@@ -21,6 +21,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,7 +69,7 @@ public class TestRiderTransactional {
     @Transactional//添加事务注解，测试结束数据不会提交到数据库。测试结束数据回滚
     public void test1() {
         List<User> all1 = userService.findAllUser();
-        User user = new User("张三", 13, "天津");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         //模拟主键冲突
         //User user1=new User(6,"张三",13,"天津");
         userService.saveUser(user);
@@ -85,18 +87,18 @@ public class TestRiderTransactional {
     @Test
     @DataSet(value = "allTables.yml", strategy = SeedStrategy.CLEAN_INSERT)
     public void test2() {
-        User byUserid = userService.findById(6);
         List<User> all = userService.findAllUser();
+        List<Product> allp=productService.findAllProduct();
         System.out.println(11);
     }
 
     @Test
-    @DataSet(value = "allTables.yml", strategy = SeedStrategy.CLEAN_INSERT)
+    @DataSet(value = "user.yml,product.yml", strategy = SeedStrategy.CLEAN_INSERT)
     @Transactional
     public void test3() {
         List<User> all = userService.findAllUser();
         List<Product> products = productService.findAllProduct();
-        User user = new User("张三6", 13, "天津6");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         userService.saveUser(user);
         Product product = new Product(1, "水果", "橘子");
         productService.saveProduct(product);

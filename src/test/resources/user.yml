@@ -1,10 +1,18 @@
-USER:
-  - USERID: 3
-    NAME: "王五"
-    AGE: 12
-    ADDRESS: "上海"
-  - USERID: 4
-    NAME: "王五1"
-    AGE: 13
-    ADDRESS: "上海1"
+user:
+  - userid: 3
+    address: "北京"
+    age: 12
+    name: "李四"
+    create_date: "2020-03-19 05:10:13.0"
+    decr: 123.123
+    flor: 123.123
+    dour: 123.123
+  - userid: 4
+    address: "地址5"
+    age: 123
+    name: "测试5"
+    create_date: "2020-03-19 05:10:14.0"
+    decr: 123.123
+    flor: 123.123
+    dour: 123.123
 

@@ -11,6 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
@@ -24,10 +27,7 @@ public class testService {
     @Test
     public void test1(){
         //模拟dao层返回结果
-        User user=new User();
-        user.setAddress("北京丰台区");
-        user.setAge(122);
-        user.setName("张三");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         given(this.userRepository.findOne(1))
                 .willReturn(user);
 

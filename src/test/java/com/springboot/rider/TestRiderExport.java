@@ -22,7 +22,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,12 +53,12 @@ public class TestRiderExport {
      * builderType：构建器(java)文件将在与outputName 相同的路径上生成，但是文件后缀将更改为.java
      */
     @Test
-    @DataSet(value = "user.yml",strategy = SeedStrategy.INSERT)
+    //@DataSet(value = "user.yml",strategy = SeedStrategy.INSERT)
   /*  @ExportDataSet(format = DataSetFormat.YML,outputName="target/exported/xml/allTables.yml",
             builderType = BuilderType.DEFAULT)*/
     @ExportDataSet(format = DataSetFormat.YML,outputName="target/exported/xml/allTables.yml")
     public void test1() {
-        User user=new User("张三",13,"天津");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         userService.saveUser(user);
         User user1 = userService.findById(6);
         List<User> all = userService.findAllUser();

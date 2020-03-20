@@ -1,29 +1,29 @@
+order_info:
+  - orderid: 1
+    create_date: "2020-03-11 21:45:50.0"
+    order_name: "商品"
 
 product:
   - productid: 1
     name: "苹果"
     title: "水果"
     type: 1
-  - productid: 2
-    name: "苹果"
-    title: "水果"
-    type: 1
 
 user:
   - userid: 1
-    address: "北京"
-    age: 12
-    name: "李四1"
-  - userid: 2
-    address: "北京"
-    age: 12
-    name: "李四2"
-  - userid: 3
     address: "天津"
-    age: 13
+    age: 12
+    create_date: "2020-03-20 21:45:34.0"
+    decr: 123.00
+    dour: 123.123
+    flor: 123.12
     name: "张三"
-  - userid: 4
+  - userid: 2
     address: "天津"
-    age: 13
+    age: 12
+    create_date: "2020-03-20 21:47:27.0"
+    decr: 123.00
+    dour: 123.123
+    flor: 123.12
     name: "张三"
 

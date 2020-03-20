@@ -15,6 +15,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,7 +50,7 @@ public class TestRiderExpect {
         /*DataSetExecutor executor = dbUnitRule.getDataSetExecutor();
         DataSetConfig dataSetConfig = new DataSetConfig("product.yml");
         executor.createDataSet(dataSetConfig);*/
-       User user=new User("张萌",13,"田径");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
        userRepository.save(user);
         User byUserid = userRepository.findOne(6);
         List<User> all = userRepository.findAllUser();

@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import static org.mockito.BDDMockito.given;
 
 /**
@@ -35,11 +38,7 @@ public class testControllerwithoutWeb {
     @Test
     public void getAllCities() throws Exception {
         //构造模拟service返回结果，并不会走真实的service
-        User user=new User();
-        user.setUserid(6);
-        user.setAddress("北京丰台区");
-        user.setAge(122);
-        user.setName("张三");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         given(this.userService.findById(1))
                 .willReturn(user);
 

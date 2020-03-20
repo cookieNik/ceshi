@@ -23,6 +23,9 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CeshiApplication.class)
 //指定采用基于内存的测试数据库H2
@@ -36,7 +39,7 @@ public class TestMockSpy {
     ProductService productService;
     @Test
     public void test1(){
-        User user=new User("12321",234,"234324");
+        User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         BDDMockito.given(this.userService.findById(4)).willReturn(user);
         //返回上面定义的user
         User acUser = userService.findById(4);
