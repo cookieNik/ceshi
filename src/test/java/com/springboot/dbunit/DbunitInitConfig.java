@@ -1,5 +1,6 @@
 package com.springboot.dbunit;
 
+import com.springboot.testWithHsql.HsqlConfig;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -27,10 +28,12 @@ import java.util.Iterator;
 public class DbunitInitConfig {
 
     private DataSource dataSource;
+    private HsqlConfig hsqlConfig=new HsqlConfig();
 
     public DbunitInitConfig(DataSource dataSource) throws SQLException, DatabaseUnitException {
         this.dataSource = dataSource;
-        this.conn=new DatabaseConnection(dataSource.getConnection());
+        //this.dataSource=hsqlConfig.getDataSource();
+        this.conn=new DatabaseConnection(this.dataSource.getConnection());
         conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,  new H2DataTypeFactory());
     }
 
@@ -79,22 +82,28 @@ public class DbunitInitConfig {
     public void loadData() throws Exception{
         IDataSet dataSet=new FlatXmlDataSet(new FlatXmlProducer(new InputSource(new FileInputStream(path))));
         DatabaseOperation.CLEAN_INSERT.execute(conn,dataSet);
+        conn.close();
     }
 
     /**
      * 测试完毕还数据库状态
      */
-    public void dataRollback() throws DatabaseUnitException, SQLException, FileNotFoundException {
-        /*IDataSet dataSet=new FlatXmlDataSet(new FlatXmlProducer(new InputSource(new FileInputStream(path))));
-        DatabaseOperation.CLEAN_INSERT.execute(conn,dataSet);*/
-
+    public void dataRollback() throws Exception {
         FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
         builder.setColumnSensing(true);
         IDataSet ds =builder.build(new FileInputStream(path));
 
+       /* IDataSet dataSet=new FlatXmlDataSet(new FlatXmlProducer(new InputSource(new FileInputStream(path))));*/
+       // clearTable();
         // recover database
         DatabaseOperation.CLEAN_INSERT.execute(conn, ds);
+        //DatabaseOperation.CLEAN_INSERT.execute(conn, ds);
+        conn.close();
     }
 
+
+    public void closeConn() throws SQLException {
+        conn.close();
+    }
 
 }

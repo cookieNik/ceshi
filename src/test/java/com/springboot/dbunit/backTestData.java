@@ -1,6 +1,8 @@
 package com.springboot.dbunit;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.springboot.ceshi.CeshiApplication;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 /**
  *
@@ -42,5 +46,9 @@ public class backTestData {
     @Test
     public void backAllTables() throws Exception {
         config.backAll();
+    }
+    @After
+    public void closeCon() throws SQLException {
+        config.closeConn();
     }
 }

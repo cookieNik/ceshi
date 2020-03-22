@@ -75,6 +75,7 @@ public class TestRiderTransactional {
         userService.saveUser(user);
         //模拟主键冲突
         //userService.inseruserInfo(user1);
+        userService.deleteUser(1);
         User byUserid = userService.findById(6);
         List<User> all = userService.findAllUser();
         System.out.println(11);

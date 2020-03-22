@@ -12,12 +12,15 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,9 +38,9 @@ import java.util.List;
  * 从数据库取实际结果-> 事先准备的期望结果 -> 断言 -> 回滚数据库 -> 关闭数据库连接
  *
  */
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = CeshiApplication.class)
-@ActiveProfiles("test")
+//@ActiveProfiles("hsql")
 //@Rollback(value = false)  //为true的时候测试方法增删改会回滚
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestDBunitTransactional {
@@ -58,7 +61,7 @@ public class TestDBunitTransactional {
     public void init() throws Exception {
         //初始化数据库，建立数据据连接
         this.config=new DbunitInitConfig(dataSource);
-        //备份数据库表，全部备份，或者根据表名备份
+        //备份数据库表，全部备份，或者根据表名备份,将数据加载到h2数据库中
         config.loadData();
         //备份指定表名数据
         //config.backSpecified("user");
@@ -80,8 +83,8 @@ public class TestDBunitTransactional {
         User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         userService.saveUser(user);
         List<User> users1=userService.findAllUser();
-        //userService.deleteUser(1);
-        //List<User> users=userService.findAllUser();
+        userService.updateUser("asdsa",1);
+        List<User> users=userService.findAllUser();
         System.out.println("123");
     }
 
@@ -90,7 +93,7 @@ public class TestDBunitTransactional {
      * @throws Exception
      */
     @Test
-    //@Rollback(false)
+    @Rollback(false)
     @Transactional
     public void test2() throws Exception {
         //测试service业务逻辑，模拟dao层返回结果，并不会走真实dao层，但会的user1对象是上面定义的user
@@ -98,17 +101,18 @@ public class TestDBunitTransactional {
         User user=new User("张三",12,"天津",new Date(),new BigDecimal(123),123.12f,123.123);
         userService.saveUser(user);
         List<User> users1=userService.findAllUser();
+        //userService.updateUser("lisi",1);
         //userService.deleteUser(1);
-        //List<User> user2=userService.findAllUser();
+        List<User> user2=userService.findAllUser();
         System.out.println("123");
 
     }
 
     /**
-     * 用之前备份的数据库临时文件。回滚数据库
+     * 用之前备份的数据库临时文件。回滚数据库,通过备份数据回滚事务会报锁表异常。
      */
-    @After
-    public void rollBack() throws FileNotFoundException, DatabaseUnitException, SQLException {
+    /*@After
+    public void rollBack() throws Exception{
         config.dataRollback();
-    }
+    }*/
 }

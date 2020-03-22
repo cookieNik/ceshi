@@ -40,4 +40,16 @@ public class UserOutControl {
         List<User> allUser = userServive.findAllUser();
         return allUser;
     }
+    @RequestMapping(value = "/updateUser",method = RequestMethod.GET)
+    public void updateUser(String name,int userid){
+        userServive.updateUser(name, userid);
+        System.out.println("123");
+        return ;
+    }
+    @RequestMapping(value = "/deleteUser",method = RequestMethod.GET)
+    public void deleteUser(int userid){
+        userServive.deleteUser(userid);
+        System.out.println("123");
+        return ;
+    }
 }
