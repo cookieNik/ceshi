@@ -28,7 +28,7 @@ import java.util.Iterator;
 public class DbunitInitConfig {
 
     private DataSource dataSource;
-    private HsqlConfig hsqlConfig=new HsqlConfig();
+    //private HsqlConfig hsqlConfig=new HsqlConfig();
 
     public DbunitInitConfig(DataSource dataSource) throws SQLException, DatabaseUnitException {
         this.dataSource = dataSource;
