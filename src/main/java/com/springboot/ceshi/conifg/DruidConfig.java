@@ -9,6 +9,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
@@ -20,6 +21,7 @@ public class DruidConfig  implements EnvironmentAware {
     public void setEnvironment(Environment env) {
         this.propertyResolver = new RelaxedPropertyResolver(env, "spring.datasource.");
     }
+    @Primary
     @Bean("dataSource")
     public DataSource dataSource() {
         DruidDataSource datasource = new DruidDataSource();
