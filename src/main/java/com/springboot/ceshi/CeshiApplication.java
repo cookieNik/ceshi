@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CeshiApplication {
 
 	/*
-	* 主类
+	* 主类qq
 	 * @param args
 	 */
 	public static void main(String[] args) {
