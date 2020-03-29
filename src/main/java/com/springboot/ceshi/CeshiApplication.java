@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CeshiApplication {
 
-	/**
-	 * zhuleidsafdsfa1
+	/*
+	* 主类
 	 * @param args
 	 */
 	public static void main(String[] args) {
