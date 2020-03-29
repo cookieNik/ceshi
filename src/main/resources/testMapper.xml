@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <dataset>
-   <user userid="1" address="123" age="213" create_date="2020-03-19 23:30:24.0" decr="123.00" dour="123.0" flor="123.0" name="1"/>
-   <user userid="2" address="324" age="234" create_date="2020-03-20 23:28:56.0" decr="234.00" dour="234.0" flor="234.0" name="32"/>
-   <product productid="1" name="1" title="2" type="2"/>
-   <order_info orderid="2" create_date="2020-03-05 16:11:55.0" order_name="2"/>
+    <user userid="3" name="李四" age="16" address="北京1"></user>
+    <user userid="4" name="李四1" age="161" address="北京11"></user>
+   <!-- <product id="1" type="4" name="馒头" status="1"></product>
+    <product id="2" type="4" name="白菜" status="2"></product>-->
 </dataset>
